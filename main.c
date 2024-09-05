@@ -25,12 +25,9 @@ void pl(char *frase, int time){ // pl = "printf lento", função para imprimir a
 }
 
 void desenhar(int a, int b) {
-	int randputa = rand()%4+1, randcor;
-	while(randputa%2 != 0){
-		randputa = rand()%4+1;
-	}
-    if (b > 16) {
-        b -= randputa;
+	int randcor;
+    if (b > 17) {
+        b = 17;
     }
     int ma = a / 2;
     int mb = b / 2;
@@ -44,11 +41,11 @@ void desenhar(int a, int b) {
     }
     textcolor(15);
     gotoxy(10 + ma, 20 - mb);
-    printf("c");
-    gotoxy(9, 20 - mb);
     printf("a");
-    gotoxy(10+ma, b);
+    gotoxy(9, 20 - mb);
     printf("b");
+    gotoxy(10+ma,20 - b);
+    printf("c");
     gotoxy(10, 20);
     printf("C");
     gotoxy(10 + a, 20 -b);
