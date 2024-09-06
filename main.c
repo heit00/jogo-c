@@ -18,7 +18,7 @@ bool repeat = false;
 //Declarando variáveis e funções iniciais
 //---
 
-void pl(char *frase, int time){ //pl = "printf lento", função para imprimir algo com Sleep na tela
+void pl(char *frase, int time){ //pl = "printf lento", função para imprimir algo letra por letra e com um certo delay
     for (char *p = frase; *p; p++) {
         putchar(*p);
         fflush(stdout);
@@ -26,7 +26,7 @@ void pl(char *frase, int time){ //pl = "printf lento", função para imprimir al
     }
 }
 
-void desenhar(int a, int b) { //Função para desenhar o trinangulo ABC no quiz de pitágoras (calculo da hipotenusa)
+void desenhar(int a, int b) { //Função para desenhar o triângulo ABC no quiz de pitágoras (cálculo da hipotenusa)
 	int randcor;
     if (b > 17) {
         b = 17;
@@ -43,17 +43,17 @@ void desenhar(int a, int b) { //Função para desenhar o trinangulo ABC no quiz 
     }
     textcolor(15);
     gotoxy(10 + ma, 20 - mb);
-    printf("a");
+    printf("c");
     gotoxy(9, 20 - mb);
     printf("b");
     gotoxy(10+ma,20 - b);
-    printf("c");
+    printf("a");
     gotoxy(10, 20);
-    printf("C");
+    printf("A");
     gotoxy(10 + a, 20 -b);
     printf("B");
     gotoxy(10, 20 - b);
-    printf("A");
+    printf("C");
 }
 
 int good_sqrt(int a, int b, int c){ //Certificar que o delta pertence ao conjunto dos Naturais 
@@ -150,7 +150,7 @@ void ope(int *a, int *b, int*c, char *op, float *result, float *result2, int dif
         case 7: //Cálculo de hipotenusa
         	*op='p';
         	srand(time(NULL));
-        	int random = rand()%6+1;
+        	int random = rand()%10+1;
         	*a = 3*random;
 			*b = 4*random;
 			*c = sqrt(pow(*a,2)+pow(*b,2));
@@ -162,7 +162,7 @@ void easy(){ //Dificuldade fácil (operações básicas)
     int a, b;
     char op, resulchar[5]; //op = char da representação da operação; resulchar = char do resultado inserido pelo usuário
     float result, resp;
-    char* pEnd; //Converter char paara int (1)
+    char* pEnd; //Usado para converter char para int (1)
     while(pontos <= 5){
         ope(&a, &b, 0, &op, &result, 0 , 0);
         printf("%d %c %d = ", a, op, b);
@@ -171,11 +171,11 @@ void easy(){ //Dificuldade fácil (operações básicas)
         resp = strtod(resulchar, &pEnd); //Converter char para int (2); tem muitos jeitos de fazer isso, mas esse deu certo, então deixemos assim.
         if(result == resp){
             ++pontos;
-            printf("Acertou! Boa!!\nSeus pontos atuais: %d\nPontos restantes para o próxsimo nível: %d\n",  pontos, (5 - pontos));
+            printf("Acertou! Boa!!\nSeus pontos atuais: %d\nPontos restantes para o próxsimo nível: %d\n\n",  pontos, (6 - pontos));
         }
 		else{
             --vida;
-            printf("Você errou! :(\nValor correto: %.0f\nSeus pontos atuais: %d\nSua vida atual: %d\n", result, pontos, vida);
+            printf("Você errou! :(\nValor correto: %.0f\nSeus pontos atuais: %d\nSua vida atual: %d\n\n", result, pontos, vida);
             if(vida == 0){
                 printf("Você morreu!");
                 printf("\nSeus pontos finais: %d", pontos);
@@ -183,22 +183,22 @@ void easy(){ //Dificuldade fácil (operações básicas)
             }
         }
     }
-    if(pontos >= 5){ //Passagem de nível
+    if(pontos >= 5){ //Passagem para o nível médio
         Sleep(1000);
         system("cls");
         pl("Você passou para o ", 2);
         pl("NÍVEL MÉDIO!", 100);
-        printf("\nBoa sorte.\n");
+        printf("\nBoa sorte.\n\n");
         Sleep(1000);
         medium();
     }
 }
 
-void medium(){ //Dificuldade média (exp e sqrt)
+void medium(){ //Dificuldade média
     int a, b;
     char op, resulchar[5]; //op = char da representação da operação; resulchar = char do resultado inserido pelo usuário
     float result, resp;
-    char* pEnd; //Char --> int (1)
+    char* pEnd; // Usado p/ char --> int
     while(pontos < 10){
         ope(&a, &b, 0, &op, &result,0,1);
         if(op == 's'){
@@ -209,14 +209,14 @@ void medium(){ //Dificuldade média (exp e sqrt)
         }
         fflush(stdin);
         gets(resulchar);
-        resp = strtod(resulchar, &pEnd); //Char --> int (2)
+        resp = strtod(resulchar, &pEnd); //Char --> int
         if(result == resp){
             ++pontos;
-            printf("Acertou! Boa!!\nSeus pontos atuais: %d\nPontos restantes para o próximo nível: %d\n", pontos, 10 - pontos);
+            printf("Acertou! Boa!!\nSeus pontos atuais: %d\nPontos restantes para o próximo nível: %d\n\n", pontos, 10 - pontos);
         }
 		else{
             --vida;
-            printf("Você errou! :(\nValor correto: %.0f\nSeus pontos atuais: %d\nSua vida atual: %d\n", result, pontos, vida);
+            printf("Você errou! :(\nValor correto: %.0f\nSeus pontos atuais: %d\nSua vida atual: %d\n\n", result, pontos, vida);
             if(vida == 0){
                 printf("Você morreu!");
                 printf("\nSeus pontos finais: %d", pontos);
@@ -224,7 +224,7 @@ void medium(){ //Dificuldade média (exp e sqrt)
             }
         }
     }
-    if(pontos >= 10){ //Passagem de nível
+    if(pontos >= 10){ //Passagem para o nível difícil
         Sleep(1000);
         system("cls");
         pl("Você passou para o ", 2);
@@ -235,14 +235,14 @@ void medium(){ //Dificuldade média (exp e sqrt)
     }
 }
 
-void hard() { //Função para realização de operações de grau alto (para nosso contexto) tais como: equações do segundo grau e cálculo de hipotenusas em triângulos retângulos
+void hard() { //Função para realização de operações de alto grau (para nosso contexto), como equações do segundo grau e cálculo de hipotenusas em triângulos retângulos
     int a, b, c;
 	char C, B, op; //op = char da representação da operação
     float result, result2;
     while(pontos < 20){
     	srand(time(NULL));
         ope(&a, &b, &c, &op, &result, &result2, 2);
-        if(op == 'e'){
+        if(op == 'e'){ //op usado para determinar qual operação irá acontecer, nesse caso, equação
             system("cls");
             partens(&B,&C,b,c);
             printf("\nResolva a seguinte equação:\n\tx² %c %dx %c %d = 0",B,b,C,c);
@@ -255,7 +255,7 @@ void hard() { //Função para realização de operações de grau alto (para nos
             fflush(stdin);
             if( (resp1 == result && resp2 == result2) || (resp2 == result && resp1 == result2)){
                 ++pontos;
-                printf("Acertou! Boa!!\nSeus pontos atuais: %d\nPontos restantes para o próximo nível: %d\n", pontos, 20 - pontos);
+                printf("Acertou! Boa!!\nSeus pontos atuais: %d\nPontos restantes para o próximo nível: %d\n\n", pontos, 20 - pontos);
                 Sleep(500);
             }
             else if(resp1 == result || resp2 == result2){                                                     
@@ -264,7 +264,7 @@ void hard() { //Função para realização de operações de grau alto (para nos
             }
             else{
                 --vida;
-                printf("Você errou! :(\nResultados corretos (respectivamente): %.0f e %.0f\nSeus pontos atuais: %d\nSua vida atual: %d\n",result, result2, pontos, vida);
+                printf("Você errou! :(\nResultados corretos (respectivamente): %.0f e %.0f\nSeus pontos atuais: %d\nSua vida atual: %d\n\n",result, result2, pontos, vida);
                 Sleep(500);
                 if (vida == 0) {
                 printf("Você morreu!");
@@ -273,7 +273,7 @@ void hard() { //Função para realização de operações de grau alto (para nos
                 }
             }
         }
-        else if(op == 'p'){
+        else if(op == 'p'){ //op para cálculo de hipotenusa
         	srand(time(NULL));
         	system("cls");
         	int resp;
@@ -294,7 +294,7 @@ void hard() { //Função para realização de operações de grau alto (para nos
                 printf("Você errou! :(\nResultado correto: %d\nSeus pontos atuais: %d\nSua vida atual: %d\n", c, pontos, vida);
                 Sleep(3000);
                 if (vida == 0) {
-                printf("Voce morreu!");
+                printf("Você morreu!");
                 printf("\nSeus pontos finais: %d", pontos);
                 Sleep(2000);
                 break;
@@ -314,7 +314,7 @@ void hard() { //Função para realização de operações de grau alto (para nos
 void diff_escolha(){ //Seleção de dificuldade
     system("cls");
     pl("Beleza, ", 40);
-    pl("então, qual dificuldade voce quer comecar (ao longo do jogo, ela aumentará)\n 1- Fácil\n 2- Médio\n 3- Difícil\n>  ", 1);
+    pl("então, qual dificuldade você quer começar (ao longo do jogo, ela aumentará)\n 1- Fácil\n 2- Médio\n 3- Difícil\n>  ", 1);
     diff = getchar();
     fflush(stdin);
     do{
@@ -382,17 +382,17 @@ int main(){
             gotoxy(1, 3);
             printf("|=====================================|");
             if(call_title==0){ //Chamar animação do título apenas uma vez
-                for(int i=0; i<=(strlen(title)-1); i++){
-                    gotoxy((16+i), 2); //Nivelar título
+                gotoxy(1, 2);
+                printf("                                       ");
+				for(int i=0; i<=(strlen(title)-1); i++){
+                    gotoxy((14+i), 2); //Nivelar título
                     n = rand()%9+1;
                     printf("%d", n);
-                    gotoxy((15+i), 2); //Nivelar título tbm
+                    gotoxy((14+i), 2); //Nivelar título tbm
                     Sleep(1);
                     printf("%c", title[i]);
                     Sleep(1);
                 }
-                gotoxy(18, 2);
-                printf(" "); //Certificar que nao haja nada impresso na frente do título
                 call_title++;
             }
             if(call_init == 0){ //Chamar menu apenas uma vez
@@ -406,12 +406,12 @@ int main(){
         if(kbhit() == true){
             choose = getchar();
             fflush(stdin);
-            if(choose == '1'){ //Chama o menu de dificuldades
+            if(choose == '1'){ //Chamar o menu de dificuldades
                 repeat = false;
                 diff_escolha();
                 break;
-            } 
-            if(choose == '2'){ //Explica o funcionamento do jogo
+            }
+            if(choose == '2'){ //Explicar o funcionamento do jogo
                 repeat = false;
                 pl("Você deve responder a um problema matemático, se acertar você ganha pontos para o próximo nível!\nSe você errar, perde uma vida e não ganha pontos.\nVocê acha que consegue? ;)\n", 1);
                 pl("Pressione enter para começar! ", 10);
